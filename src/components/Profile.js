@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Edit from "../components/Edit";
 
 function Profile() {
   const [person, setPerson] = useState({});
-  // let navigate = useNavigate();
+  const [updatePerson, setUpdatePerson] = useState(null);
+
   let { id } = useParams();
 
   useEffect(() => {
@@ -27,26 +29,6 @@ function Profile() {
 
   const { firstName, lastName, phoneNumbers, groups } = person;
 
-  // const profile = (
-  //   <div>
-  //     <p>{`First name: ${firstName}`}</p>
-  //     <p>{`First name: ${lastName}`}</p>
-  //     <p>Phone numbers:</p>
-  //     <ul>
-  //       {person &&
-  //         phoneNumbers.map((entry, index) => (
-  //           <li key={index}>{entry.phoneNumber}</li>
-  //         ))}
-  //     </ul>
-
-  //     <p>Groups:</p>
-  //     <ul>
-  //       {person &&
-  //         groups.map((entry, index) => <li key={index}>{entry.name}</li>)}
-  //     </ul>
-  //   </div>
-  // );
-
   return (
     <>
       {
@@ -66,6 +48,8 @@ function Profile() {
             {groups &&
               groups.map((entry, index) => <li key={index}>{entry.name}</li>)}
           </ul>
+          <button onClick={() => setUpdatePerson(person)}>Edit</button>
+          {updatePerson && <Edit person={updatePerson} />}
         </div>
       }
     </>
