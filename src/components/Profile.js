@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Edit from "../components/Edit";
 
@@ -7,6 +7,7 @@ function Profile() {
   const [updatePerson, setUpdatePerson] = useState(null);
 
   let { id } = useParams();
+  let navigate = useNavigate();
 
   useEffect(() => {
     let active = true;
@@ -21,13 +22,26 @@ function Profile() {
     };
 
     fetchData();
+    // setUpdatePerson(null);
 
     return () => {
       active = false;
     };
-  }, []);
+  }, [person]);
 
   const { firstName, lastName, phoneNumbers, groups } = person;
+
+  const handleDeletePerson = () => {
+    fetch(`http://localhost:8080/people/${person.id}`, {
+      method: "Delete",
+      //body: JSON.stringify(dataToPost),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    navigate("/deleted");
+  };
 
   return (
     <>
@@ -48,8 +62,24 @@ function Profile() {
             {groups &&
               groups.map((entry, index) => <li key={index}>{entry.name}</li>)}
           </ul>
-          <button onClick={() => setUpdatePerson(person)}>Edit</button>
-          {updatePerson && <Edit person={updatePerson} />}
+          <button
+            className="btn btn-success me-1 mb-4"
+            onClick={() => setUpdatePerson(person)}
+          >
+            Edit
+          </button>
+          <button
+            className="btn btn-danger mb-4"
+            onClick={() => handleDeletePerson()}
+          >
+            Delete
+          </button>
+          {updatePerson && (
+            <Edit
+              person={updatePerson}
+              setUpdatePerson={setUpdatePerson}
+            />
+          )}
         </div>
       }
     </>

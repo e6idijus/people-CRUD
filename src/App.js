@@ -6,6 +6,7 @@ import ErrorPage from "./components/ErrorPage";
 import Profile from "./components/Profile";
 import People from "./components/People";
 import Register from "./components/Register";
+import ProfileDeleted from "./components/ProfileDeleted";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
         <Route
           path="/people"
           element={<People />}
+        />
+        <Route
+          path="/deleted"
+          element={<ProfileDeleted />}
         />
         <Route
           path="*"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useId } from "react";
 
-function Edit({ person }) {
+function Edit({ person, setUpdatePerson }) {
   const [formData, setFormData] = useState({
     firstName: person.firstName,
     lastName: person.lastName,
@@ -51,6 +51,8 @@ function Edit({ person }) {
         "Content-Type": "application/json",
       },
     });
+
+    setUpdatePerson(null);
   };
 
   return (
