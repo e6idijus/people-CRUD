@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 function Register() {
+  let navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -54,80 +56,115 @@ function Register() {
         "Content-Type": "application/json",
       },
     });
+
+    navigate("/complete");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        First Name:
-        <input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Last Name:
-        <input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Phone Numbers:
-        {formData.phoneNumbers.map((phoneNumber, index) => (
-          <input
-            type="text"
-            key={index}
-            value={phoneNumber}
-            onChange={(e) => {
-              handlePhoneChange(index, e.target.value);
-            }}
-          />
-        ))}
-        <button
-          type="button"
-          onClick={() =>
-            setFormData({
-              ...formData,
-              phoneNumbers: [...formData.phoneNumbers, ""],
-            })
-          }
-        >
-          Add Phone Number
-        </button>
-      </label>
-      <br />
-      <label>
-        Groups:
-        {formData.groups.map((group, index) => (
-          <input
-            type="text"
-            key={index}
-            value={group}
-            onChange={(e) => handleGroupChange(index, e.target.value)}
-          />
-        ))}
-        <button
-          type="button"
-          onClick={() =>
-            setFormData({
-              ...formData,
-              groups: [...formData.groups, ""],
-            })
-          }
-        >
-          Add Group
-        </button>
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-6">
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-12 mb-3">
+                <label className="form-label">First Name:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  pattern="[A-Z][a-z]+"
+                  required
+                  placeholder="Your name"
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="col-12 mb-3">
+                <label className="form-label">Last Name:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  pattern="[A-Z][a-z]+"
+                  required
+                  placeholder="Your last name"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12 mb-3">
+                <label className="form-label">Phone Numbers:</label>
+                {formData.phoneNumbers.map((phoneNumber, index) => (
+                  <input
+                    className="form-control mb-2"
+                    type="text"
+                    key={index}
+                    value={phoneNumber}
+                    placeholder="+370-xxx-xxxxx"
+                    pattern="\+370-\d{3}-\d{5}"
+                    onChange={(e) => {
+                      handlePhoneChange(index, e.target.value);
+                    }}
+                  />
+                ))}
+
+                <button
+                  className="btn btn-primary rounded-circle"
+                  type="button"
+                  onClick={() =>
+                    setFormData({
+                      ...formData,
+                      phoneNumbers: [...formData.phoneNumbers, ""],
+                    })
+                  }
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12 mb-3">
+                <label className="form-label">Groups:</label>
+                {formData.groups.map((group, index) => (
+                  <input
+                    className="form-control mb-2"
+                    type="text"
+                    key={index}
+                    value={group}
+                    placeholder="Your group"
+                    pattern="[A-Z][a-z]+"
+                    onChange={(e) => handleGroupChange(index, e.target.value)}
+                  />
+                ))}
+                <button
+                  type="button"
+                  className="btn btn-primary rounded-circle"
+                  onClick={() =>
+                    setFormData({
+                      ...formData,
+                      groups: [...formData.groups, ""],
+                    })
+                  }
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <button
+              className="btn btn-primary"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

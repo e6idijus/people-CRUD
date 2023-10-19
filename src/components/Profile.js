@@ -22,7 +22,6 @@ function Profile() {
     };
 
     fetchData();
-    // setUpdatePerson(null);
 
     return () => {
       active = false;

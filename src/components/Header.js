@@ -4,14 +4,14 @@ export default function Header() {
   return (
     <header>
       LOGO
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary bg-primary">
         <div className="container-fluid">
-          <a
+          {/* <a
             className="navbar-brand"
             href="#"
           >
             Navbar
-          </a>
+          </a> */}
           <button
             className="navbar-toggler"
             type="button"
