@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import Country from "./Country";
 
 function Register() {
   let navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    country: "",
     phoneNumbers: [""],
     groups: [""],
   });
@@ -36,11 +38,19 @@ function Register() {
     });
   };
 
+  const handleCountryChange = (selectedCountry) => {
+    setFormData({
+      ...formData,
+      country: selectedCountry,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataToPost = {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      country: formData.country,
       phoneNumbers: formData.phoneNumbers.map((phoneNumber) => ({
         phoneNumber,
       })),
@@ -48,6 +58,8 @@ function Register() {
         name,
       })),
     };
+
+    console.log(dataToPost);
 
     fetch("http://localhost:8080/people", {
       method: "POST",
@@ -91,6 +103,15 @@ function Register() {
                   required
                   placeholder="Your last name"
                   onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12 mb-3">
+                <Country
+                  selectedCountry={formData.country}
+                  onCountryChange={handleCountryChange}
                 />
               </div>
             </div>
@@ -155,6 +176,7 @@ function Register() {
                 </button>
               </div>
             </div>
+
             <button
               className="btn btn-primary"
               type="submit"

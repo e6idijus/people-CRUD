@@ -28,11 +28,11 @@ export default function People() {
       <div className="row">
         {people.map((person) => {
           return (
-            <div className="col-12 col-md-4">
-              <div
-                className="row border-bottom border-primary mb-2 m-0"
-                key={person.id}
-              >
+            <div
+              className="col-12 col-md-4"
+              key={person.id}
+            >
+              <div className="row border-bottom border-primary mb-2 m-0">
                 <p className="col-10 col-md-10 col-sm-11 mb-1">
                   {person.firstName} {person.lastName}
                 </p>
@@ -49,6 +49,4 @@ export default function People() {
       </div>
     </div>
   );
-
-  // return <div className="row pt-4">{People}</div>;
 }

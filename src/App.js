@@ -14,7 +14,7 @@ function App() {
     <>
       <Header />
 
-      <div className="mt-4">
+      <main className="mt-4">
         <Routes>
           <Route
             path="/"
@@ -49,8 +49,7 @@ function App() {
             element={<ErrorPage />}
           />
         </Routes>
-      </div>
-      {/* <footer>This is a footer</footer> */}
+      </main>
     </>
   );
 }
